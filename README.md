@@ -41,53 +41,44 @@ Lab13/
 
 int main() {
     system("chcp 1251 > nul");
-    
+
     char str[1000];
-    
+
     printf("Введите строку: ");
     fgets(str, sizeof(str), stdin);
-    
-    // Убираем символ новой строки
+
     size_t len = strlen(str);
     if (len > 0 && str[len - 1] == '\n') {
         str[len - 1] = '\0';
         len--;
     }
-    
     // Находим середину строки
     int middle = len / 2;
     int count = 0;
-    
-    // Используем указатели для работы со строкой
-    char *ptr = str + middle;
-    
+
+    char* ptr = str + middle; // Указатель на начало второй половины
+
     printf("Вторая половина строки: %s\n", ptr);
-    
-    // Проходим по второй половине строки
+
     for (int i = middle; i < len; i++) {
         char current = str[i];
-        // Пропускаем пробелы
         if (current == ' ') {
             continue;
         }
-        
-        // Проверяем, что текущий символ не буква и не цифра
         if (!isalnum(current)) {
-            // Проверяем, что после знака препинания идет пробел
             if (i + 1 < len && str[i + 1] == ' ') {
                 count++;
                 printf("Найден знак препинания '%c' на позиции %d\n", current, i + 1);
             }
-            // Или если это последний символ в строке (не пробел)
             else if (i == len - 1 && current != ' ') {
                 count++;
                 printf("Найден знак препинания '%c' на позиции %d\n", current, i + 1);
             }
         }
     }
-    
+
     printf("\nКоличество знаков препинания во второй половине строки: %d\n", count);
-    
+
     return 0;
 }
 ```
